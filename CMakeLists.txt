@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(custom_interfaces)
 
+if(NOT CMAKE_CXX_STANDARD)
+	set(CMAKE_CXX_STANDARD 14)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -22,5 +26,9 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+	"srv/RobotControlCustomMsg.srv"
+)
 
 ament_package()
